@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-export default function SearchForm() {
-    const [searchQuery, setSearchQuery] = useState('')
+export default function SearchForm({ text }) {
+    const [searchQuery, setSearchQuery] = useState(text || '')
     const navigate = useNavigate();
 
     function handleSubmit(e) {

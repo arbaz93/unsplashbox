@@ -10,7 +10,7 @@ export default function App() {
       <Navigation />
         <Routes>
           <Route path='/' index element={<Home />} />
-          <Route path='/search:searchQuery' element={<SearchFeed />}/>
+          <Route path='/search' element={<SearchFeed />}/>
           <Route path='/image' element={<ImageFeed />} />
           <Route path='/collections' element={<Collections />} />
           <Route path='/collection' element={<Collection />} />
