@@ -36,3 +36,12 @@ input:focus-within {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent; 
 }
+.half-gradient {
+    /* background: url('assets/gradiend-bg.svg') no-repeat ; */
+    background: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, white 50%),
+        linear-gradient(to right, #F2C593, #8A3282);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

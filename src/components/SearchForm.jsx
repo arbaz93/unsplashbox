@@ -1,14 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+
 export default function SearchForm({ text }) {
     const [searchQuery, setSearchQuery] = useState(text || '')
     const navigate = useNavigate();
+    let location = useLocation().pathname;
 
     function handleSubmit(e) {
         e.preventDefault();
-        if(searchQuery) {
+        if(searchQuery.length > 1) {
             navigate(`/search` , {state: {searchQuery}})
-            // setsearchQuery('')
+            if (location === '/search') window.location.reload();
           }
     }
 
