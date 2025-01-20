@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Collection, Collections, SearchFeed, ImageFeed, ErrorPage } from './pages';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path='/collection' element={<Collection />} />
           {/* <Route path='*' element={<ErrorPage />} /> */}
         </Routes>
+      <Footer />
       </BrowserRouter>
     </>
   )
