@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import Masonry from 'react-responsive-masonry';
 export default function ImageCard({ imageData }) {
   
-  console.log(imageData)
   const navigate = useNavigate();
   function handleClick(e) {
     e.preventDefault();

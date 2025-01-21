@@ -23,10 +23,12 @@ export default function SearchFeed() {
       .then(res => {
         console.log(res)
         if (res.results.length != 0) {
+          console.log(res.results)
           setFetchStatus('200')
           setImages(images.concat(res.results.map(i => {
             const IMAGE_DATA = {
               id: i.id,
+              collections: i.current_user_collections,
               alt: i.alt_description,
               created_at: i.created_at,
               height: i.height,
