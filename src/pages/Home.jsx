@@ -1,4 +1,3 @@
-import React from 'react'
 import {Heading, Description, SearchForm} from '../components'
 
 export default function Home() {

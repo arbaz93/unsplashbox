@@ -8,3 +8,10 @@ export async function fetchFromAPI(url, page = 1) {
     
     return data
 }
+export async function fetchImageFromAPI(imageId) {
+    const { data } = await axios.get(`${BASE_URL}/photos?${imageId}&client_id=${API_KEY}`)
+    
+    return data
+}
+
+// https://api.unsplash.com/photos?Dwu85P9SOIk}&client_id=KDIRHFDYPdV5Nd8vrZKYAqhcKUoyHxqWGJVka_G1iBI
