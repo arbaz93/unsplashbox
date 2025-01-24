@@ -1,7 +1,8 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import HeadingSmall from './HeadingSmall'
 import Description from './Description'
 import { Link } from 'react-router-dom'
+
 
 export default function CollectionItem({ collectionData }) {
   const minusIcon = <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
