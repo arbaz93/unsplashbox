@@ -1,5 +1,5 @@
 import axios from "axios";
-
+    
 const BASE_URL = 'https://api.unsplash.com';
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY
 
@@ -9,9 +9,8 @@ export async function fetchFromAPI(url, page = 1) {
     return data
 }
 export async function fetchImageFromAPI(imageId) {
-    const { data } = await axios.get(`${BASE_URL}/photos?${imageId}&client_id=${API_KEY}`)
+    const { data } = await axios.get(`${BASE_URL}/photos/${imageId}?client_id=${API_KEY}`)
     
     return data
 }
-
-// https://api.unsplash.com/photos?Dwu85P9SOIk}&client_id=KDIRHFDYPdV5Nd8vrZKYAqhcKUoyHxqWGJVka_G1iBI
+// https://api.unsplash.com/photos/ap4aJwyR67c?client_id=KDIRHFDYPdV5Nd8vrZKYAqhcKUoyHxqWGJVka_G1iBI

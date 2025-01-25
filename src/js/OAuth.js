@@ -21,9 +21,9 @@ export async function fetchAccessToken(code) {
         console.error('Error fetching access token:', error.response?.data || error.message);
     }
 }
-export function redirectToAuth() {
+export function redirectToAuth( imageId ) {
     const clientId = API_KEY;
-    const redirectUri = REDIRECT_URI;
+    const redirectUri = REDIRECT_URI + imageId;
     const scope = 'write_collections';
     const authUrl = `https://unsplash.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}`;
     

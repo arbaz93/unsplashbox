@@ -45,3 +45,9 @@ input:focus-within {
 .infinite-scroll-component__outerdiv {
     width: 100%;
 }
+
+.min-height-equal-vh-minus-nav-footer {
+    --nav-height: 69px;
+    --footer-height: 56px;
+    min-height: calc(100vh - (var(--nav-height) + var(--footer-height)));
+}
