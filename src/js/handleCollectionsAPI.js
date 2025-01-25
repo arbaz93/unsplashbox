@@ -5,15 +5,21 @@ const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY
 
 export async function fetchCollections(collectionId) {
     
-    // const { data } = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
-    const { data } = await axios.get(`${BASE_URL}/collections/DK7tJb2dP6Q/related?client_id=${API_KEY}`)
+    const { data } = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
+    
+    return data
+}
+
+export async function getUserCollections(username) {
+    
+    const { data } = await axios.get(`${BASE_URL}/users/${username}/collections/?client_id=${API_KEY}`)
     
     return data
 }
 
 export async function createCollection() {
     const options = {
-        title: 'New Collection',
+        title: 'New Collection fax',
         description: 'A new collection',
         private: false
     }

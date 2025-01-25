@@ -12,6 +12,7 @@ export default function App() {
           <Route path='/' index element={<Home />} />
           <Route path='/search' element={<SearchFeed />}/>
           <Route path='/image/:id' element={<ImageFeed />} />
+          <Route path='/image/*' element={<ImageFeed />} />
           <Route path='/collections' element={<Collections />} />
           <Route path='/collection' element={<Collection />} />
           <Route path='/success' element={<SuccessAuth />} />

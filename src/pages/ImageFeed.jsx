@@ -3,7 +3,7 @@ import { useSearchParams, useParams } from 'react-router-dom'
 import { GrayButton, CollectionItem, ImageCard, ProfileImage, HeadingSmall, Description, Spinner, Error } from '../components';
 import { redirectToAuth, fetchAccessToken } from '../js/OAuth.js';
 import { fetchImageFromAPI } from '../js/fetchFromAPI.js';
-import { fetchCollections } from '../js/handleCollectionsAPI.js';
+import { getUserCollections } from '../js/handleCollectionsAPI.js';
 
 export default function ImageFeed() {
   const [imageData, setImageData] = useState({});
@@ -16,21 +16,13 @@ export default function ImageFeed() {
 
     // fetchCollections('DK7tJb2dP6Q').then(res => console.log(res))
     // fetch image data from the API
-    fetchImageFromAPI(id)
-      .then(res => {
-        setImageData(res)
-        setLoadingStatus('loaded')
-      })
-      .catch(error => {
-        console.error(error)
-        setErrorLog(error)
-        setLoadingStatus('error')
-      })
+    ImageRedirectHandler()
+    if (id) {
+      fetchImageData(id);
+    }
 
     // If auth code is present in the URL, fetch the access token
-    if (code) {
-      // fetchAccessToken(code)
-    }
+
 
   }, [])
 
@@ -45,9 +37,40 @@ export default function ImageFeed() {
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const date = new Date(created_at);
 
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get("code"); // Extracts the 'code' query parameter
 
+  function fetchImageData(imageId) {
+    fetchImageFromAPI(imageId)
+      .then(res => {
+        setImageData(res)
+        setLoadingStatus('loaded')
+      })
+      .catch(error => {
+        console.error(error)
+        setErrorLog(error)
+        setLoadingStatus('error')
+      })
+  }
+
+  const [searchParams] = useSearchParams();
+  function ImageRedirectHandler() {
+    const code = searchParams.get("code"); // Extracts the 'code' query parameter
+    const imageId = searchParams.get("state"); // Extracts the 'state' query parameter
+
+    if (code) {
+      fetchImageData(imageId);
+      fetchAccessToken(code)
+        .then(res => {
+          console.log(res.data);
+          getUserCollections(res.data.username).then(res => console.log(res))
+        })
+        .catch(error => console.error(error))
+      console.log('Authorization code:', code);
+      console.log('State (imageId):', imageId);
+      // Proceed with exchanging the authorization code for an access token
+    } else {
+      console.log('No authorization code found. This may not be a redirect.');
+    }
+  }
   return (
     <>
 
@@ -68,7 +91,7 @@ export default function ImageFeed() {
               <div className='flex gap-4'>
                 <GrayButton icon={plusIcon} text="Add to Collection" />
                 <GrayButton icon={downIcon} text="Download" />
-                <button className='bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold text-base flex gap-2 justify-center items-center px-6 py-4 rounded-[0.25rem]' onClick={() => {redirectToAuth(id)}}>Auth Access</button>
+                <button className='bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold text-base flex gap-2 justify-center items-center px-6 py-4 rounded-[0.25rem]' onClick={() => { redirectToAuth(id) }}>Auth Access</button>
               </div>
             </div>
             <div className='flex flex-col gap-4'>
