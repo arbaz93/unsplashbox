@@ -27,3 +27,9 @@ export async function createCollection() {
     
     return data
 }
+export async function addToCollection() {
+    // here comes functionality to add a photo to a collection
+}
+export async function removefromCollection() {
+    // here comes functionality to remove a photo to a collection
+}
