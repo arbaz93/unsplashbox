@@ -38,8 +38,7 @@ export default function SearchFeed() {
         } else {
           setFetchStatus('empty')
         }
-      })
-      .catch(error => {
+      }).catch(error => {
         setFetchStatus(error.status)
         console.error(error)
       });

@@ -22,6 +22,7 @@ export function redirectToAuth(imageId) {
     const clientId = API_KEY;
     const redirectUri = REDIRECT_URI; // Keep it static, e.g., 'http://localhost:5173/image'
     const scope = 'write_collections'; // The scope of the authorization
+    // const scope = 'public+read_user+write_collections'; // The scope of the authorization
 
     // Pass the imageId as part of the state or query parameter
     const authUrl = `https://unsplash.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(imageId)}`;
