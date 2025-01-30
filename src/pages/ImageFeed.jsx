@@ -116,30 +116,31 @@ useEffect(() => {
     } else {
       setDisplayAuthMessage(true)
     }
+    console.log(displayAuthMessage)
+    console.log(setDisplayAddToCollections)
   }
   return (
     <>
       
       {loadingStatus === 'loading' ? <Spinner /> : loadingStatus === 'error' ? <Error error={errorLog} /> :
-        (<section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 pl-12 pr-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
-         <AuthenticateMessage redirectUri={id} setDisplayAuthMessage={setDisplayAuthMessage} displayAuthMessage={displayAuthMessage} />
+        (<section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
+         {displayAuthMessage && <AuthenticateMessage redirectUri={id} setDisplayAuthMessage={setDisplayAuthMessage}/>}
          {displayAddToCollections && <AddToCollection collections={collections} setDisplayAddToCollections={setDisplayAddToCollections} />}
           <div>
             <ImageCard imageData={imageData} />
           </div>
-          <div className='flex flex-col gap-10'>
+          <div className='flex flex-col gap-10 px-4'>
             <div className="flex flex-col gap-4">
-              <div className='user flex gap-4 items-center'>
+              <div className='user flex gap-4  items-center text-center sm:text-left'>
                 <ProfileImage link={user?.links.html} imageLink={user?.profile_image?.medium} alt={user?.first_name} />
                 <HeadingSmall text={(user?.first_name ?? 'Name is Undefined') + " " + (user?.last_name ?? '')} />
               </div>
               <div>
                 <Description text={`Published on ${MONTHS[date?.getMonth()] ?? ''} ${date?.getDate() ?? ''}, ${date?.getFullYear() ?? ''}`} size='mid' />
               </div>
-              <div className='flex gap-4'>
-                <GrayButton icon={plusIcon} text="Add to Collection" onClick={handleAddToCollectionDisplay}/>
+              <div className='flex flex-wrap gap-4'>
+                <GrayButton icon={plusIcon} text="Add to Collection" callback={handleAddToCollectionDisplay} />
                 <GrayButton icon={downIcon} text="Download" />
-                <button className='bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold text-base flex gap-2 justify-center items-center px-6 py-4 rounded-[0.25rem]' onClick={() => {setDisplayAddToCollections(!displayAddToCollections)}}>displayStatus</button>
               </div>
             </div>
             <div className='flex flex-col gap-4'>

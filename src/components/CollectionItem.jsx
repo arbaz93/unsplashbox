@@ -24,7 +24,7 @@ export default function CollectionItem({ data, actionType }) {
     }
   }
   return (
-    <div className='flex gap-4 items-center duration-200 hover:bg-ntrl-clr-100 p-4 rounded-[0.5rem]'>
+    <div className='flex gap-4 items-center duration-200 hover:bg-ntrl-clr-100 rounded-[0.5rem]'>
       <div className='w-20 aspect-square rounded-[0.25rem]'>
         <img className='rounded-[0.25rem] object-cover w-full h-full ' src={data?.cover_photo?.urls?.thumb} alt={data?.cover_photo?.alt_description} />
       </div>

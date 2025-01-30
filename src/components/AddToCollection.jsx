@@ -12,8 +12,10 @@ export default function AddToCollection({ collections, setDisplayAddToCollection
     }, [searchCollectionsQuery])
     
   return (
-    <div  className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0" onClick={() => {setDisplayAddToCollections(false)}}>
-        <div className={'flex flex-col gap-4 aspect-square absolute p-8  bg-white rounded-[0.5rem] shadow-lg'}>
+    <div  className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0" >
+      <div className="absolute inset-0 bg-ntrl-clr-200 bg-opacity-40 inset-0" onClick={() => {setDisplayAddToCollections(false)}}></div>
+       
+        <div className={'flex flex-col gap-4 aspect-square absolute py-8 px-6 bg-white rounded-[0.5rem] shadow-lg'}>
             <h2 className='text-ntrl-clr-300 font-semibold text-2xl'>Add to Collections</h2>
 
             <SearchForm actionType={'search current collections'} setSearchCollectionsQuery={setSearchCollectionsQuery} />
