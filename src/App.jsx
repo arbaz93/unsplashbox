@@ -7,6 +7,8 @@ import { useState } from 'react';
 export default function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [displayAuthMessage, setDisplayAuthMessage] = useState(false);
+
   return (
     <> 
       <BrowserRouter>
@@ -14,8 +16,8 @@ export default function App() {
         <Routes>
           <Route path='/' index element={<Home />} />
           <Route path='/search' element={<SearchFeed />}/>
-          <Route path='/image/:id' element={<ImageFeed accessToken={accessToken} setAccessToken={setAccessToken} setIsLogin={setIsLogin}/>} />
-          <Route path='/image/*' element={<ImageFeed accessToken={accessToken} setAccessToken={setAccessToken} setIsLogin={setIsLogin}/>} />
+          <Route path='/image/:id' element={<ImageFeed accessToken={accessToken} setAccessToken={setAccessToken} setIsLogin={setIsLogin} setDisplayAuthMessage={setDisplayAuthMessage} displayAuthMessage={displayAuthMessage}/>} />
+          <Route path='/image/*' element={<ImageFeed  accessToken={accessToken} setAccessToken={setAccessToken} setIsLogin={setIsLogin} setDisplayAuthMessage={setDisplayAuthMessage} displayAuthMessage={displayAuthMessage}/>} />
           <Route path='/collections' element={<Collections />} />
           <Route path='/collection' element={<Collection />} />
           <Route path='/success' element={<SuccessAuth />} />

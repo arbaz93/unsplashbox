@@ -27,9 +27,45 @@ export async function createCollection() {
     
     return data
 }
-export async function addToCollection() {
-    // here comes functionality to add a photo to a collection
+export async function addToCollection(collectionId, photoId, accessToken) {
+    try {
+        const response = await fetch(`https://api.unsplash.com/collections/${collectionId}/add`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ photo_id: photoId }),
+        });
+    
+        if (!response.ok) {
+          throw new Error("Failed to add image to collection");
+        }
+    
+        const data = await response.json();
+        console.log("Image added to collection:", data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
 }
-export async function removefromCollection() {
-    // here comes functionality to remove a photo to a collection
+export async function removefromCollection(collectionId, photoId, accessToken) {
+    try {
+        const response = await fetch(`https://api.unsplash.com/collections/${collectionId}/remove`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ photo_id: photoId }),
+        });
+    
+        if (!response.ok) {
+          throw new Error("Failed to remove image from collection");
+        }
+    
+        const data = await response.json();
+        console.log("Image removed from collection:", data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
 }
