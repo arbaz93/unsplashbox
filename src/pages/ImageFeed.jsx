@@ -7,7 +7,7 @@ import { addToCollection, getUserCollections } from '../js/handleCollectionsAPI.
 import Cookies from 'js-cookie';
 import { use } from 'react';
 import AddToCollection from '../components/AddToCollection.jsx';
-
+const redirectUri = 'http://localhost:5173/image'; // Redirect URI for the OAuth flow
 export default function ImageFeed({ accessToken, setAccessToken, setIsLogin, displayAuthMessage, setDisplayAuthMessage }) {
   const [imageData, setImageData] = useState({});
   const [loadingStatus, setLoadingStatus] = useState('loading');
@@ -78,7 +78,7 @@ useEffect(() => {
 
     if (code) {
       fetchImageData(imageId);
-      fetchAccessToken(code)
+      fetchAccessToken(code, redirectUri)
         .then(res => {
           Cookies.set('ACCESS_TOKEN_UBOX', JSON.stringify(res.data)) // Set access token to cookies
           setAccessToken(res.data); // Remove or keep it Check later
@@ -124,7 +124,7 @@ useEffect(() => {
       
       {loadingStatus === 'loading' ? <Spinner /> : loadingStatus === 'error' ? <Error error={errorLog} /> :
         (<section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
-         {displayAuthMessage && <AuthenticateMessage redirectUri={id} setDisplayAuthMessage={setDisplayAuthMessage}/>}
+         {displayAuthMessage && <AuthenticateMessage imageId={id} redirectUri={redirectUri} setDisplayAuthMessage={setDisplayAuthMessage}/>}
          {displayAddToCollections && <AddToCollection collections={collections} setDisplayAddToCollections={setDisplayAddToCollections} />}
           <div>
             <ImageCard imageData={imageData} />
