@@ -27,8 +27,7 @@ export default function searchCurrentCollections(collections, query) {
     const fuse = new Fuse(documents, fuseOptions);
     // Change the pattern
     const searchPattern = query;
-
     console.log(fuse.search(searchPattern))
-
+    return fuse.search(searchPattern);
 };
 // END Code for searching

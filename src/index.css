@@ -51,3 +51,28 @@ input:focus-within {
     --footer-height: 56px;
     min-height: calc(100vh - (var(--nav-height) + var(--footer-height)));
 }
+
+.custom-fade-out {
+    z-index: 999;
+    animation: fadeIn 2s forwards, fadeOut .5s 4s forwards;
+} 
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-2rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}

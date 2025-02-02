@@ -3,7 +3,7 @@ import { SearchForm, ImageCard } from "../components"
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect, useState } from "react";
-import { fetchFromAPI } from "../js/fetchFromAPI";
+import { fetchFromAPI } from "../js/handleImageAPI";
 
 export default function SearchFeed() {
   const searchQuery = useLocation().state.searchQuery;

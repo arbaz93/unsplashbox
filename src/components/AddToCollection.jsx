@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react'
 import { SearchForm, Description, CollectionItem } from '.'
 import searchCurrentCollections from '../js/fuzzySearch.js';
+import { useCollectionsStore } from '../zustandstore/store.jsx';
 
-export default function AddToCollection({ collections, setDisplayAddToCollections }) {
-    const [searchResult, setSearchResult] = useState([]);
+export default function AddToCollection({ photoId }) {
+    const collections = useCollectionsStore(state => state.collections);
+    const setDisplayAddToCollections = useCollectionsStore(state => state.setDisplayAddToCollections);
+    
+    const [searchResult, setSearchResult] = useState(collections);
     const [searchCollectionsQuery, setSearchCollectionsQuery] = useState('');
     
     useEffect(() => {
-      searchCurrentCollections(collections, searchCollectionsQuery) 
-      console.log(searchCollectionsQuery)
+      if(searchCollectionsQuery.length < 2 ) {
+        setSearchResult(collections)
+      } else {
+        setSearchResult(searchCurrentCollections(collections, searchCollectionsQuery).map(result => result.item))
+      }
     }, [searchCollectionsQuery])
     
   return (
@@ -21,9 +28,8 @@ export default function AddToCollection({ collections, setDisplayAddToCollection
             <SearchForm actionType={'search current collections'} setSearchCollectionsQuery={setSearchCollectionsQuery} />
             <Description text={`${searchResult.length} matches`} size='mid' />
             <div className='flex flex-col gap-4 max-h-[30rem] overflow-y-hidden'>
-                {collections.map(collection => {
-
-                    return <CollectionItem key={collection.id} data={collection} actionType={'add'} />
+                {searchResult.map(collection => {
+                    return <CollectionItem key={collection.id} data={collection} photoId={photoId} actionType={'add'} />
                 })}
             </div>
         </div>
