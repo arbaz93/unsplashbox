@@ -75,7 +75,7 @@ export default function ImageFeed() {
       setAccessToken(JSON.parse(Cookies.get('ACCESS_TOKEN_UBOX')))
     }
   }
-  function getCollectionsThatContainCurrentImage(imageId, collectionsData) {
+  function getCollectionsThatContainCurrentImage(imageId, collectionsData = []) {
     collectionsData.map(collection => {
       fetchCollectionImages(collection.id)
         .then(res => {
