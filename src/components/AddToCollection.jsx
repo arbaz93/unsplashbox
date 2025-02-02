@@ -3,7 +3,7 @@ import { SearchForm, Description, CollectionItem } from '.'
 import searchCurrentCollections from '../js/fuzzySearch.js';
 import { useCollectionsStore } from '../zustandstore/store.jsx';
 
-export default function AddToCollection({ photoId }) {
+export default function AddToCollection({ photoId, setCollectionsBelongingToImage }) {
     const collections = useCollectionsStore(state => state.collections);
     const setDisplayAddToCollections = useCollectionsStore(state => state.setDisplayAddToCollections);
     
@@ -29,7 +29,7 @@ export default function AddToCollection({ photoId }) {
             <Description text={`${searchResult.length} matches`} size='mid' />
             <div className='flex flex-col gap-4 max-h-[30rem] overflow-y-hidden'>
                 {searchResult.map(collection => {
-                    return <CollectionItem key={collection.id} data={collection} photoId={photoId} actionType={'add'} />
+                    return <CollectionItem key={collection.id} data={collection} photoId={photoId} actionType={'add'} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />
                 })}
             </div>
         </div>

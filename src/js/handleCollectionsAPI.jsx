@@ -7,33 +7,26 @@ export async function fetchCollections(collectionId) {
 
   const { data } = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
 
-  return data
+  return data;
 }
 
 export async function getUserCollections(username) {
+  const response = await axios.get(`${BASE_URL}/users/${username}/collections/?client_id=${API_KEY}`)
 
-  const { data } = await axios.get(`${BASE_URL}/users/${username}/collections/?client_id=${API_KEY}`)
-
-  return data
+  return response;
 }
-export async function getCollectionPhotos(collectionId) {
+
+
+export async function fetchCollectionImages(collectionId) {
   ///collections/:id/photos
-  const { data } = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
-}
-export async function createCollection() {
-  const options = {
-    title: 'New Collection fax',
-    description: 'A new collection',
-    private: false
-  }
-  const { data } = await axios.post(`${BASE_URL}/collections`, options)
+  const response = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
 
-  return data
+  return response;
 }
 
 export async function addToCollection(collectionId, photoId, accessToken) {
   const response = await axios.post(
-    `https://api.unsplash.com/collections/${collectionId}/add`,
+    `${BASE_URL}/collections/${collectionId}/add`,
     { photo_id: photoId }, // Axios automatically sets the request body
     {
       headers: {
@@ -46,7 +39,7 @@ export async function addToCollection(collectionId, photoId, accessToken) {
 }
 export async function removefromCollection(collectionId, photoId, accessToken) {
 
-  const response = await axios.delete(`https://api.unsplash.com/collections/${collectionId}/remove`, {
+  const response = await axios.delete(`${BASE_URL}/collections/${collectionId}/remove`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -56,4 +49,17 @@ export async function removefromCollection(collectionId, photoId, accessToken) {
 
   return response;
 
+}
+
+
+
+export async function createCollection() {
+  const options = {
+    title: 'New Collection fax',
+    description: 'A new collection',
+    private: false
+  }
+  const { data } = await axios.post(`${BASE_URL}/collections`, options)
+
+  return data
 }
