@@ -151,7 +151,7 @@ export default function ImageFeed() {
                 </div>
                 <div className='flex flex-wrap gap-4'>
                   <GrayButton icon={plusIcon} text="Add to Collection" callback={handleAddToCollectionDisplay} />
-                  <DownloadButton icon={downIcon} text="Download" filename={imageData.alt_description} imageLink={imageData.links.download_location} />
+                  <DownloadButton text="Download" filename={imageData.alt_description} imageLink={imageData.links.download_location} />
                 </div>
               </div>
               <div className='flex flex-col gap-4'>
