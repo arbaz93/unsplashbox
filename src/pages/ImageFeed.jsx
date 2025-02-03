@@ -19,6 +19,7 @@ export default function ImageFeed() {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
 
+  // zustend state management
   const displayAddToCollections = useCollectionsStore(state => state.displayAddToCollections);
   const setDisplayAddToCollections = useCollectionsStore(state => state.setDisplayAddToCollections);
   const accessToken = useAccessStore(state => state.accessToken);
@@ -30,11 +31,12 @@ export default function ImageFeed() {
 
   const { user, created_at } = imageData;
 
+  // Icons
   const plusIcon = <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.6665 7.33335H8.6665V3.33335C8.6665 3.15654 8.59627 2.98697 8.47124 2.86195C8.34622 2.73693 8.17665 2.66669 7.99984 2.66669C7.82303 2.66669 7.65346 2.73693 7.52843 2.86195C7.40341 2.98697 7.33317 3.15654 7.33317 3.33335V7.33335H3.33317C3.15636 7.33335 2.98679 7.40359 2.86177 7.52862C2.73674 7.65364 2.6665 7.82321 2.6665 8.00002C2.6665 8.17683 2.73674 8.3464 2.86177 8.47142C2.98679 8.59645 3.15636 8.66669 3.33317 8.66669H7.33317V12.6667C7.33317 12.8435 7.40341 13.0131 7.52843 13.1381C7.65346 13.2631 7.82303 13.3334 7.99984 13.3334C8.17665 13.3334 8.34622 13.2631 8.47124 13.1381C8.59627 13.0131 8.6665 12.8435 8.6665 12.6667V8.66669H12.6665C12.8433 8.66669 13.0129 8.59645 13.1379 8.47142C13.2629 8.3464 13.3332 8.17683 13.3332 8.00002C13.3332 7.82321 13.2629 7.65364 13.1379 7.52862C13.0129 7.40359 12.8433 7.33335 12.6665 7.33335Z" fill="#121826" />
   </svg>
 
-
+  // Date
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const date = new Date(created_at);
 
@@ -50,10 +52,11 @@ export default function ImageFeed() {
         setLoadingStatus('error')
       })
   }
+  // This function checks if page is a redirect. if it is a redirect then it handles it accordingly
   function ImageRedirectHandler() {
     const code = searchParams.get("code"); // Extracts the 'code' query parameter
     const imageId = searchParams.get("state"); // Extracts the 'state' query parameter
-    if (code) {
+    if (code) { // if code exist fetch image data, access token and collections belonging to this image
       getCollectionsThatContainCurrentImage(imageId);
       fetchImageData(imageId);
       fetchAccessToken(code, redirectUri)
@@ -74,7 +77,9 @@ export default function ImageFeed() {
     }
   }
   function getCollectionsThatContainCurrentImage(imageId, collectionsData = []) {
+
     collectionsData.map(collection => {
+      // map over each collection and fetch that collection images from api then add the collection to collectionsBelongingToImage if current image exist in this collection
       fetchCollectionImages(collection.id)
         .then(res => {
           const collectionImages = res.data;
@@ -91,7 +96,9 @@ export default function ImageFeed() {
         })
     });
   }
+  // This functions renders AddToCollection component
   function handleAddToCollectionDisplay() {
+    // if access token exist then render AddToCollection else render AuthenticationMesssage component
     if (Cookies.get('ACCESS_TOKEN_UBOX')) {
       setDisplayAddToCollections(true)
     } else {
@@ -101,9 +108,6 @@ export default function ImageFeed() {
   }
 
   useEffect(() => {
-    // fetchCollections('DK7tJb2dP6Q').then(res => console.log(res))
-    // fetch image data from the API
-    // if access does not axist then refresh token or re authenticate
     ImageRedirectHandler();
     checkAccessToken();
     if (id) {
@@ -113,12 +117,10 @@ export default function ImageFeed() {
       const imageId = searchParams.get("state"); // Extracts the 'state' query parameter
       setImageId(imageId);
     }
-    // If auth code is present in the URL, fetch the access token
-
-
   }, [])
 
   useEffect(() => {
+    // if access token exists then fetch user collections and then set them to collections and run getCollectionsThatContainCurrentImage()
     if (accessToken) {
       getUserCollections(accessToken?.username).then(res => {
         setCollections(res.data);
@@ -134,7 +136,7 @@ export default function ImageFeed() {
         (
           <section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
             {displayAuthMessage && <AuthenticateMessage imageId={id} redirectUri={redirectUri} />}
-            {displayAddToCollections && <AddToCollection photoId={imageId} setCollectionsBelongingToImage={setCollectionsBelongingToImage}/>}
+            {displayAddToCollections && <AddToCollection photoId={imageId} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />}
             <div>
               <ImageCard imageData={imageData} />
             </div>
@@ -149,7 +151,7 @@ export default function ImageFeed() {
                 </div>
                 <div className='flex flex-wrap gap-4'>
                   <GrayButton icon={plusIcon} text="Add to Collection" callback={handleAddToCollectionDisplay} />
-                  <DownloadButton icon={downIcon} text="Download" filename={imageData.alt_description} imageLink={imageData.links.download_location}/>
+                  <DownloadButton icon={downIcon} text="Download" filename={imageData.alt_description} imageLink={imageData.links.download_location} />
                 </div>
               </div>
               <div className='flex flex-col gap-4'>
@@ -158,11 +160,12 @@ export default function ImageFeed() {
                 {(accessToken === null) ? <AuthenticateButton imageId={imageId} redirectUri={redirectUri} />
                   : collectionsBelongingToImage.length === 0 ? <Description text='No collections found' size='mid' />
                     : collectionsBelongingToImage.map(collection => {
-                      return <CollectionItem key={collection.id} data={collection} photoId={id} actionType={'remove'} setCollectionsBelongingToImage={setCollectionsBelongingToImage}/>
+                      return <CollectionItem key={collection.id} data={collection} photoId={id} actionType={'remove'} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />
                     })}
               </div>
             </div>
-          </section>)
+          </section>
+        )
       }
     </>
   )

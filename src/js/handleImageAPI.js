@@ -13,4 +13,3 @@ export async function fetchImageFromAPI(imageId) {
     
     return data
 }
-// https://api.unsplash.com/photos/ap4aJwyR67c?client_id=KDIRHFDYPdV5Nd8vrZKYAqhcKUoyHxqWGJVka_G1iBI

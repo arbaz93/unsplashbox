@@ -1,7 +1,7 @@
 import axios from "axios";
+
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY
 const SECRET_KEY = import.meta.env.VITE_UNSPLASH_SECRET_KEY
-// const REDIRECT_URI = import.meta.env.VITE_UNSPLASH_REDIRECT_URI
 
 export async function fetchAccessToken(code, redirectUri) {
     const clientId = API_KEY;

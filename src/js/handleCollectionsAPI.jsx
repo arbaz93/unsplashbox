@@ -16,14 +16,13 @@ export async function getUserCollections(username) {
   return response;
 }
 
-
+// ######################
 export async function fetchCollectionImages(collectionId) {
   ///collections/:id/photos
   const response = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
 
   return response;
 }
-
 export async function addToCollection(collectionId, photoId, accessToken) {
   const response = await axios.post(
     `${BASE_URL}/collections/${collectionId}/add`,
@@ -50,7 +49,7 @@ export async function removefromCollection(collectionId, photoId, accessToken) {
   return response;
 
 }
-
+// ######################
 
 
 export async function createCollection() {
