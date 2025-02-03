@@ -1,9 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { SearchForm, ImageCard } from "../components"
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { SearchForm, ImageGrid } from "../components"
 import { useEffect, useState } from "react";
-import { fetchFromAPI } from "../js/handleImageAPI";
+import { fetchSearchImagesFromAPI } from "../js/handleImageAPI";
 
 export default function SearchFeed() {
   const searchQuery = useLocation().state.searchQuery;
@@ -17,7 +15,7 @@ export default function SearchFeed() {
 
 
   function fetchImages() {
-    fetchFromAPI(`search/photos?query=${searchQuery}`, currentPage)
+    fetchSearchImagesFromAPI(`search/photos?query=${searchQuery}`, currentPage)
       .then(res => {
         if (res.results.length != 0) {
           setFetchStatus('200')
@@ -53,19 +51,7 @@ export default function SearchFeed() {
       {fetchStatus === 'fetching' ? spinner
         : fetchStatus === 400 ||  fetchStatus === 401 || fetchStatus === 403 || fetchStatus === 404 || fetchStatus === 505 || fetchStatus === 503 ? <p>{fetchStatus} | Something went wrong!</p>
         : (fetchStatus === 'empty' && images.length === 0) ? <p>{searchQuery} not found!</p>
-          : <InfiniteScroll
-            className="ml-auto overflow-hidden"
-            dataLength={images.length}
-            next={fetchImages}
-            hasMore={fetchStatus === 'empty' ? false : true}
-          >
-            <ResponsiveMasonry className="w-[80%] m-auto" columnsCountBreakPoints={{ 350: 2, 640: 4, 900: 4 }}>
-              <Masonry gutter='1rem'>
-
-                {images.map(imageData => <ImageCard key={imageData.id} imageData={imageData} />)}
-              </Masonry>
-            </ResponsiveMasonry>
-          </InfiniteScroll>
+          : <ImageGrid images={images} callback={fetchImages} fetchStatus={fetchStatus} />
       }
     </section>
   )

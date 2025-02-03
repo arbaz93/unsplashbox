@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useParams } from 'react-router-dom'
-import { GrayButton, CollectionItem, ImageCard, ProfileImage, HeadingSmall, Description, AddToCollection, Spinner, Error, AuthenticateMessage, AuthenticateButton } from '../components';
+import { GrayButton, DownloadButton, CollectionItem, ImageCard, ProfileImage, HeadingSmall, Description, AddToCollection, Spinner, Error, AuthenticateMessage, AuthenticateButton } from '../components';
 import { fetchAccessToken } from '../js/OAuth.js';
 import { fetchImageFromAPI } from '../js/handleImageAPI.js';
 import { getUserCollections, fetchCollectionImages } from '../js/handleCollectionsAPI';
@@ -132,7 +132,7 @@ export default function ImageFeed() {
   }, [accessToken])
 
   useEffect(() => {
-    console.log(collectionsBelongingToImage)
+    console.log(imageData);
 
   }, [collectionsBelongingToImage])
 
@@ -158,7 +158,7 @@ export default function ImageFeed() {
                 </div>
                 <div className='flex flex-wrap gap-4'>
                   <GrayButton icon={plusIcon} text="Add to Collection" callback={handleAddToCollectionDisplay} />
-                  <GrayButton icon={downIcon} text="Download" />
+                  <DownloadButton icon={downIcon} text="Download" filename={imageData.alt_description} imageLink={imageData.links.download}/>
                 </div>
               </div>
               <div className='flex flex-col gap-4'>
