@@ -53,7 +53,7 @@ export default function ImageFeed() {
       })
   }
   // This function checks if page is a redirect. if it is a redirect then it handles it accordingly
-  function ImageRedirectHandler() {
+  function urlRedirectHandler() {
     const code = searchParams.get("code"); // Extracts the 'code' query parameter
     const imageId = searchParams.get("state"); // Extracts the 'state' query parameter
     if (code) { // if code exist fetch image data, access token and collections belonging to this image
@@ -108,7 +108,7 @@ export default function ImageFeed() {
   }
 
   useEffect(() => {
-    ImageRedirectHandler();
+    urlRedirectHandler();
     checkAccessToken();
     if (id) {
       setImageId(id);

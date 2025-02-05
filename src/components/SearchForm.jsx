@@ -21,7 +21,7 @@ export default function SearchForm({ text, actionType = 'search', setSearchColle
         }
     }, [searchQuery])
     return (
-        <form onSubmit={handleSubmit} className='border-solid bg-white shadow border-ntrl-clr-100 border-[1px] flex rounded-xl w-full md:w-[45vw]'>
+        <form onSubmit={handleSubmit} className='border-solid bg-white shadow border-ntrl-clr-100 border-[1px] flex rounded-lg w-full md:w-[45vw]'>
             <input type="text" name="search" id="search" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className='flex-1 text-base sm:text-lg px-4 py-5 border-none' placeholder='Enter you keyword...' autoFocus />
             <button className='mr-4'><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="11" cy="11" r="7" stroke="#E5E7EB" strokeWidth="2" />

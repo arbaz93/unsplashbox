@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, Collection, Collections, SearchFeed, ImageFeed, ErrorPage, SuccessAuth } from './pages';
+import { Home, CollectionPhotos, Collections, SearchFeed, ImageFeed, ErrorPage, SuccessAuth } from './pages';
 import { Navigation, Footer } from './components';
 import { useState } from 'react';
 import { ResponseMessage } from './components';
@@ -21,7 +21,7 @@ export default function App() {
           <Route path='/image/:id' element={<ImageFeed  setDisplayAuthMessage={setDisplayAuthMessage} displayAuthMessage={displayAuthMessage} />} />
           <Route path='/image/*' element={<ImageFeed setDisplayAuthMessage={setDisplayAuthMessage} displayAuthMessage={displayAuthMessage} />} />
           <Route path='/collections' element={<Collections />} />
-          <Route path='/collection' element={<Collection />} />
+          <Route path='/collection/:id/:collectionname/:totalphotos' element={<CollectionPhotos />} />
           <Route path='/success' element={<SuccessAuth />} />
           <Route path='*' element={<ErrorPage />} />
         </Routes>

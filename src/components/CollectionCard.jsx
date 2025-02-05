@@ -1,0 +1,29 @@
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import '../css/collectionsCard.css';
+import HeadingSmall from './HeadingSmall';
+import Description from './Description';
+
+export default function CollectionCard({ collection }) {
+  let images = []
+
+  for (let i = 0; i < collection.preview_photos.length - 1; i++) {
+    if (i === 3) break;
+    images.push(collection.preview_photos[i]);
+  }
+  console.log(collection)
+
+
+  return (
+    <Link to={`/collection/${collection.id}/${collection?.title ?? "Collection"}/${collection?.total_photos}`} style={{ height: 'min-content', display: 'grid', gap: '1rem'}}>
+      <div className='three-image-grid sm:w-80 md:w-[30rem] aspect-custom overflow-hidden rounded-lg'>
+        {images.map((image, i) => <img className={`item-${i + 1} w-full object-cover h-full`} key={image?.id} src={image?.urls?.small} alt={image?.urls?.slug} />)}
+      </div>
+      <div className='flex flex-col'>
+        <HeadingSmall text={collection?.title ?? "Collection"} />
+        <Description text={`${collection?.total_photos ?? '##'} photos`} size={'mid'} opacity={' opacity-50 '} />
+
+      </div>
+    </Link>
+  )
+}

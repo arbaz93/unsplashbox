@@ -17,7 +17,9 @@ export const useStore = create((set) => ({
 
 export const useAccessStore = create((set) => ({
   accessToken: null,
-  setAccessToken: (data) => set({ accessToken: data })
+  accessIsValid: true,
+  setAccessToken: (data) => set({ accessToken: data }),
+  setAccessIsValid: (bool) => set({ accessIsValid: bool })
 }))
 
 export const useCollectionsStore = create((set) => ({

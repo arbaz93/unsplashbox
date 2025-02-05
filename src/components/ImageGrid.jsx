@@ -13,7 +13,7 @@ export default function ImageGrid({ images, callback, fetchStatus }) {
             <ResponsiveMasonry className="w-[80%] m-auto" columnsCountBreakPoints={{ 350: 2, 640: 4, 900: 4 }}>
                 <Masonry gutter='1rem'>
 
-                    {images.map(imageData => <ImageCard key={imageData.id} imageData={imageData} />)}
+                    {images.map((imageData, i) => <ImageCard key={imageData.id + i} imageData={imageData} />)}
                 </Masonry>
             </ResponsiveMasonry>
         </InfiniteScroll>

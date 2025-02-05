@@ -17,9 +17,9 @@ export async function getUserCollections(username) {
 }
 
 // ######################
-export async function fetchCollectionImages(collectionId) {
+export async function fetchCollectionImages(collectionId, page = 1) {
   ///collections/:id/photos
-  const response = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
+  const response = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}&per_page=11&page=${page}`)
 
   return response;
 }
