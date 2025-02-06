@@ -58,17 +58,25 @@ input:focus-within {
 
 .custom-fade-out {
     z-index: 999;
-    animation: fadeIn 2s forwards, fadeOut .5s 4s forwards;
+    animation: fadeIn 2s forwards, transY 2s forwards, fadeOut .5s 4s forwards;
 } 
-
+.animate-fadein {
+    animation-name: fadeIn;
+}
 @keyframes fadeIn {
     0% {
-        transform: translateY(-2rem);
         opacity: 0;
     }
     100% {
-        transform: translateY(0);
         opacity: 1;
+    }
+}
+@keyframes transY {
+    0% {
+        transform: translateY(-2rem);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 @keyframes fadeOut {

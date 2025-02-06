@@ -2,7 +2,6 @@ import { useLocation } from "react-router-dom";
 import { SearchForm, ImageGrid } from "../components"
 import { useEffect, useState } from "react";
 import { fetchSearchImagesFromAPI } from "../js/handleImageAPI";
-
 export default function SearchFeed() {
   const searchQuery = useLocation().state.searchQuery;
   const [images, setImages] = useState([])
@@ -27,6 +26,7 @@ export default function SearchFeed() {
               created_at: i.created_at,
               height: i.height,
               width: i.width,
+              blur_hash: i.blur_hash,
               links: i.links,
               urls: i.urls,
               user: i.user
