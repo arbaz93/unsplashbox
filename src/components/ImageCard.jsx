@@ -1,51 +1,30 @@
 import { Link } from 'react-router-dom';
 import { Blurhash } from 'react-blurhash';
 import { useEffect } from 'react';
+import { ImageElement } from '.';
 
-export default function ImageCard({ imageData, isLoaded, onLoad }) {
+export default function ImageCard({ imageData, isLoaded, onLoad, size }) {
 
-  useEffect(() => {
-    if(!isLoaded) {
-      const img = new Image();
-      img.src = imageData?.urls?.small;
-      img.onload = onLoad;
-    }
-  }, [imageData, isLoaded, onLoad])
   return (
     // <Masonry>
     <Link to={`/image/${imageData?.id}`}
       style={{
         width: '100%',
       }}>
-        <div
-              style={{
-                width: '100%',
-                height: 'auto',
-                aspectRatio: `${imageData.width} / ${imageData.height}`,
-                position: 'relative',
-                overflow: 'hidden',
-              }}>
+      <div
+        style={{
+          width: '100%',
+          height: 'auto',
+          aspectRatio: `${imageData.width} / ${imageData.height}`,
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
 
-      {!isLoaded
-        ?
-        <Blurhash
-          hash={imageData.blur_hash}
-          width='100%'
-          height='100%'
-          resolutionX={32}
-          resolutionY={32}
-          punch={1}
-          style={{
-            display: 'block',
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-        />
-        : <img src={imageData?.urls?.small} alt={imageData?.alt_description} className="rounded-[0.25rem] animation-fadein duration-200"></img>
-      }
-        </div>
-        </Link>
+        {size == 'regular' ? <ImageElement src={imageData?.urls?.regular} isLoaded={isLoaded} onLoad={onLoad} alt={imageData?.alt_description} blurhash={imageData?.blur_hash} css={"rounded-[0.25rem] w-full animation-fadein duration-200"} />
+          : <ImageElement src={imageData?.urls?.small} isLoaded={isLoaded} onLoad={onLoad} alt={imageData?.alt_description} blurhash={imageData?.blur_hash} css={"rounded-[0.25rem] w-full animation-fadein duration-200"} />
+        }
+      </div>
+    </Link>
     // </Masonry>
   )
 }

@@ -7,7 +7,6 @@ import { useStore, useAccessStore, useCollectionsStore } from '../zustandstore/s
 
 export default function CollectionItem({ data, photoId, actionType, setCollectionsBelongingToImage }) {
 
-  console.log(data)
   const [isAdded, setIsAdded] = useState(false);
   
   const accessToken = useAccessStore(state => state.accessToken);

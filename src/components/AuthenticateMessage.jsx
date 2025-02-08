@@ -7,7 +7,7 @@ export default function AuthenticateMessage({ imageId, redirectUri }) {
   
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0">
+      <div className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0 z-10">
       <div className="absolute inset-0 bg-ntrl-clr-200 bg-opacity-40 inset-0" onClick={() => {setDisplayAuthMessage(false)}}></div>
         <div className={'flex flex-col gap-4 aspect-square items-center justify-center absolute text-center w-4/5 sm:w-4/12 p-4  bg-white rounded-[0.5rem] shadow-lg'}>
           <button

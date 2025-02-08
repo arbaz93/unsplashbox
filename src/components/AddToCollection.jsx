@@ -19,7 +19,7 @@ export default function AddToCollection({ photoId, setCollectionsBelongingToImag
     }, [searchCollectionsQuery])
     
   return (
-    <div  className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0" >
+    <div  className="flex items-center justify-center min-h-screen fixed bg-ntrl-clr-200 bg-opacity-40 inset-0 z-10" >
       <div className="absolute inset-0 bg-ntrl-clr-200 bg-opacity-40 inset-0" onClick={() => {setDisplayAddToCollections(false)}}></div>
        
         <div className={'flex flex-col gap-4 aspect-square absolute py-8 px-6 bg-white rounded-[0.5rem] shadow-lg'}>

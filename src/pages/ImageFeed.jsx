@@ -13,6 +13,7 @@ export default function ImageFeed() {
 
   const [imageData, setImageData] = useState({});
   const [loadingStatus, setLoadingStatus] = useState('loading');
+  const [isLoaded, setIsLoaded] = useState(false);
   const [errorLog, setErrorLog] = useState();
   const [imageId, setImageId] = useState('')
   const [collectionsBelongingToImage, setCollectionsBelongingToImage] = useState([]);
@@ -77,18 +78,20 @@ export default function ImageFeed() {
     }
   }
   function getCollectionsThatContainCurrentImage(imageId, collectionsData = []) {
-
-    collectionsData.map(collection => {
+    collectionsData.forEach(collection => {
       // map over each collection and fetch that collection images from api then add the collection to collectionsBelongingToImage if current image exist in this collection
+
       fetchCollectionImages(collection.id)
         .then(res => {
-          const collectionImages = res.data;
-          collectionImages.some(image => {
-            if (image.id === imageId) {
-              setCollectionsBelongingToImage(prev => [...prev, collection]);
-              return true;
-            }
-          })
+
+          // if image exist in the collection
+          if (res.data.some(image => image.id === imageId)) {
+            setCollectionsBelongingToImage(prev => {
+              const isAlreadyAdded = prev.some(col => col.id == collection.id);
+              return isAlreadyAdded ? prev : [...prev, collection];
+            })
+          }
+
 
         })
         .catch(err => {
@@ -138,7 +141,12 @@ export default function ImageFeed() {
             {displayAuthMessage && <AuthenticateMessage imageId={id} redirectUri={redirectUri} />}
             {displayAddToCollections && <AddToCollection photoId={imageId} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />}
             <div>
-              <ImageCard imageData={imageData} />
+              <ImageCard
+                imageData={imageData}
+                size={'regular'}
+                isLoaded={isLoaded}
+                onLoad={() => setIsLoaded(true)}
+              />
             </div>
             <div className='flex flex-col gap-10 px-4'>
               <div className="flex flex-col gap-4">

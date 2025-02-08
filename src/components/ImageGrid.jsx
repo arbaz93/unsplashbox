@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ImageCard } from './'
@@ -8,9 +8,8 @@ export default function ImageGrid({ images, callback, fetchStatus }) {
 
     function handleImageLoad(id) {
         setLoadedImages((prev) => ({ ...prev, [id]: true }));
-        console.log(loadedImages);
-        return loadedImages;
     }
+
     return (
         <InfiniteScroll
             className="ml-auto overflow-hidden"
