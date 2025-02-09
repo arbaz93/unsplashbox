@@ -1,8 +1,9 @@
-import { ImageElement, useState } from '.'
-export default function ProfileImage({ link, imageLink, alt}) {
+import { useState } from 'react';
+import { ImageElement } from '.'
+export default function ProfileImage({ link, imageLink, blurhash, alt}) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <a href={link}><ImageElement src={imageLink} onLoad={() => {setIsLoaded(true)}} isLoaded={isLoaded} alt={alt + ' profile image'} css={'rounded-[50%] w-12 h-12'} /></a>
+    <a href={link} className='w-12 h-12 overflow-hidden rounded-[50%]'><ImageElement src={imageLink} onLoad={() => {setIsLoaded(true)}} isLoaded={isLoaded} blurhash={blurhash ?? 'L34UvhWB0KofoLa|a|jt00of~WWB'} alt={alt + ' profile image'} css={'w-full h-full'} /></a>
   )
 }

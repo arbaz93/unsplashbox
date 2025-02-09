@@ -5,9 +5,15 @@ import { ImageCard } from './'
 
 export default function ImageGrid({ images, callback, fetchStatus }) {
     const [loadedImages, setLoadedImages] = useState({});
+    const [gridCols, setGridCols] = useState(4);
 
     function handleImageLoad(id) {
         setLoadedImages((prev) => ({ ...prev, [id]: true }));
+        if(loadedImages.length < 4) {
+            setGridCols(loadedImages.length);
+        } else {
+            setGridCols(4)
+        }
     }
 
     return (
@@ -17,7 +23,7 @@ export default function ImageGrid({ images, callback, fetchStatus }) {
             next={callback}
             hasMore={fetchStatus === 'empty' ? false : true}
         >
-            <ResponsiveMasonry className="w-[80%] m-auto" columnsCountBreakPoints={{ 350: 2, 640: 4, 900: 4 }}>
+            <ResponsiveMasonry className="w-[80%] m-auto justify-center" columnsCountBreakPoints={{ 350: 2, 640: gridCols, 900: 4 }}>
                 <Masonry gutter='1rem'>
 
                     {images.map(

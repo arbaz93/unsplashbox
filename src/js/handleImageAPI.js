@@ -13,3 +13,15 @@ export async function fetchImageFromAPI(imageId) {
     
     return data
 }
+export async function fetchRandomImagesfromAPI(query = undefined, count = 4 ) {
+    const options = {
+        params: {
+            query: query, // Only use if fetching from topic IDs
+            count: count,
+            client_id: API_KEY
+        }
+    }
+    console.log(query)
+    const response = await axios.get(`${BASE_URL}/photos/random`, options);
+    return response;
+}

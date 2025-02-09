@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useParams } from 'react-router-dom'
-import { GrayButton, DownloadButton, CollectionItem, ImageCard, ProfileImage, HeadingSmall, Description, AddToCollection, Spinner, Error, AuthenticateMessage, AuthenticateButton } from '../components';
+import { GrayButton, DownloadButton, CollectionItem, ImageCard, ProfileImage, HeadingSmall, Description, AddToCollection, Spinner, Error, AuthenticateMessage, AuthenticateButton, FullScreenImage } from '../components';
 import { fetchAccessToken } from '../js/OAuth.js';
 import { fetchImageFromAPI } from '../js/handleImageAPI.js';
 import { getUserCollections, fetchCollectionImages } from '../js/handleCollectionsAPI';
 import Cookies from 'js-cookie';
 import { useAccessStore, useCollectionsStore, useAuthStore } from '../zustandstore/store.jsx';
+import RelatedImages from '../components/RelatedImages.jsx';
 
 const redirectUri = window.location.origin + '/image'; // Redirect URI for the OAuth flow
 
@@ -15,7 +16,8 @@ export default function ImageFeed() {
   const [loadingStatus, setLoadingStatus] = useState('loading');
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorLog, setErrorLog] = useState();
-  const [imageId, setImageId] = useState('')
+  const [imageId, setImageId] = useState('');
+  const [imageFullScreen, setImageFullScreen] = useState(false);
   const [collectionsBelongingToImage, setCollectionsBelongingToImage] = useState([]);
   const [searchParams] = useSearchParams();
   const { id } = useParams();
@@ -31,7 +33,7 @@ export default function ImageFeed() {
   const setDisplayAuthMessage = useAuthStore(state => state.setDisplayAuthMessage);
 
   const { user, created_at } = imageData;
-
+  console.log(imageData)
   // Icons
   const plusIcon = <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.6665 7.33335H8.6665V3.33335C8.6665 3.15654 8.59627 2.98697 8.47124 2.86195C8.34622 2.73693 8.17665 2.66669 7.99984 2.66669C7.82303 2.66669 7.65346 2.73693 7.52843 2.86195C7.40341 2.98697 7.33317 3.15654 7.33317 3.33335V7.33335H3.33317C3.15636 7.33335 2.98679 7.40359 2.86177 7.52862C2.73674 7.65364 2.6665 7.82321 2.6665 8.00002C2.6665 8.17683 2.73674 8.3464 2.86177 8.47142C2.98679 8.59645 3.15636 8.66669 3.33317 8.66669H7.33317V12.6667C7.33317 12.8435 7.40341 13.0131 7.52843 13.1381C7.65346 13.2631 7.82303 13.3334 7.99984 13.3334C8.17665 13.3334 8.34622 13.2631 8.47124 13.1381C8.59627 13.0131 8.6665 12.8435 8.6665 12.6667V8.66669H12.6665C12.8433 8.66669 13.0129 8.59645 13.1379 8.47142C13.2629 8.3464 13.3332 8.17683 13.3332 8.00002C13.3332 7.82321 13.2629 7.65364 13.1379 7.52862C13.0129 7.40359 12.8433 7.33335 12.6665 7.33335Z" fill="#121826" />
@@ -109,7 +111,9 @@ export default function ImageFeed() {
     }
 
   }
-
+  function handleImageFullScreen() {
+    setImageFullScreen(prev => !prev);
+  }
   useEffect(() => {
     urlRedirectHandler();
     checkAccessToken();
@@ -140,7 +144,8 @@ export default function ImageFeed() {
           <section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
             {displayAuthMessage && <AuthenticateMessage imageId={id} redirectUri={redirectUri} />}
             {displayAddToCollections && <AddToCollection photoId={imageId} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />}
-            <div>
+            {imageFullScreen && <FullScreenImage src={imageData?.urls?.regular} alt={imageData?.alt_description} callback={handleImageFullScreen} />}
+            <div onClick={handleImageFullScreen}>
               <ImageCard
                 imageData={imageData}
                 size={'regular'}
@@ -171,6 +176,9 @@ export default function ImageFeed() {
                       return <CollectionItem key={collection.id} data={collection} photoId={id} actionType={'remove'} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />
                     })}
               </div>
+            </div>
+            <div className='col-span-2 mt-12 overflow-auto'>
+              <RelatedImages query={imageData?.alt_description} count={10} />
             </div>
           </section>
         )

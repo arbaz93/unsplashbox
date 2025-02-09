@@ -11,11 +11,6 @@ export default function ImageElement({ src, alt, css, isLoaded, onLoad, blurhash
     }
   }, [src, isLoaded, onLoad]);
 
-
-  useEffect(() => {
-    console.log(isLoaded)
-
-},[])
   return (
     <>
       {!isLoaded ? (

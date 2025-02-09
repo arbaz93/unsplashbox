@@ -44,11 +44,15 @@ export default function Collection() {
         <Heading title={collectionname} gradient={true} />
         <Description text={`${totalphotos ?? '##'} photos`} size={'lg'} />
       </div>
-      <div>
+      <div className='flex-1'>
         {fetchStatus === 'fetching' ? <div className='flex justify-center items-center w-full h-full'><Spinner /></div>
           : fetchStatus === 400 || fetchStatus === 401 || fetchStatus === 403 || fetchStatus === 404 || fetchStatus === 505 || fetchStatus === 503 ? <p>{fetchStatus} | Something went wrong!</p>
             : <ImageGrid images={collectionImages} callback={handleFetch} fetchStatus={fetchStatus} />
         }
+      </div>
+      <div className='text-center opacity-50'>
+        <Description text={'Certain premium and private images may not be visible.'} />
+
       </div>
     </section>
   )
