@@ -19,12 +19,11 @@ export default function RelatedImages({ query, count }) {
         if (!loadedImages[id]) {
             setLoadedImages(prev => ({ ...prev, [id]: true }))
         }
-        console.log(loadedImages);
     }
     return (
         <div className="grid grid-flow-col w-svw gap-4 scrollbar-gutter-stable pb-4 overflow-auto">
             {relatedImages.map(image => (
-                <Link to={`/image/${image.id}`} style={{ aspectRatio: 16 / 9, width: '240px' }}>
+                <Link key={image.id} to={`/image/${image.id}`} style={{ aspectRatio: 16 / 9, width: '240px' }}>
                     <ImageElement src={image?.urls.small} alt={image?.alt_description} css={css} isLoaded={loadedImages[image.id] ?? false} onLoad={() => handleImageLoad(image.id)} blurhash={image?.blur_hash} />
                 </Link>
             ))}

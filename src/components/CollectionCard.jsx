@@ -7,11 +7,10 @@ import Description from './Description';
 export default function CollectionCard({ collection }) {
   let images = []
 
-  for (let i = 0; i < collection.preview_photos.length - 1; i++) {
+  for (let i = 0; i < collection.preview_photos.length; i++) {
     if (i === 3) break;
     images.push(collection.preview_photos[i]);
   }
-  console.log(collection)
 
 
   return (

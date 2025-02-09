@@ -42,7 +42,7 @@ export default function CollectionItem({ data, photoId, actionType, setCollectio
     }
     if (actionType === 'add') {
       console.log('add')
-      addToCollection(data.id, photoId, accessToken.access_token)
+      addToCollection(data?.id, photoId, accessToken.access_token)
         .then(() => {
           setCollectionsBelongingToImage(prev => [...prev, data]);
           setResponseMessage({ message: 'Image Added Successfully', type: 'success' })
@@ -64,7 +64,7 @@ export default function CollectionItem({ data, photoId, actionType, setCollectio
         <img className='rounded-[0.25rem] object-cover w-full h-full ' src={data?.cover_photo?.urls?.thumb} alt={data?.cover_photo?.alt_description} />
       </div>
       <div className='flex flex-col gap-2 justify-center flex-1'>
-        <Link to={''}>
+        <Link to={`/collection/${data?.id}`}>
           <HeadingSmall text={data?.title ?? 'some collection'} />
         </Link>
         <Description text={`${data?.total_photos ?? 'n'} photos`} size='mid' />

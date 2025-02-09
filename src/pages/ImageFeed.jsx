@@ -141,7 +141,7 @@ export default function ImageFeed() {
 
       {loadingStatus === 'loading' ? <div className="flex justify-center items-center min-height-equal-vh-minus-nav-footer w-screen"><Spinner /></div> : loadingStatus === 'error' ? <Error error={errorLog} /> :
         (
-          <section className="grid grid-cols-1 sm:grid-cols-2 pt-16 pb-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
+          <section className="grid grid-cols-1 sm:grid-cols-2 py-16 sm:px-12 gap-9 justify-center min-height-equal-vh-minus-nav-footer">
             {displayAuthMessage && <AuthenticateMessage imageId={id} redirectUri={redirectUri} />}
             {displayAddToCollections && <AddToCollection photoId={imageId} setCollectionsBelongingToImage={setCollectionsBelongingToImage} />}
             {imageFullScreen && <FullScreenImage src={imageData?.urls?.regular} alt={imageData?.alt_description} callback={handleImageFullScreen} />}
@@ -177,8 +177,8 @@ export default function ImageFeed() {
                     })}
               </div>
             </div>
-            <div className='col-span-2 mt-12 overflow-auto'>
-              <RelatedImages query={imageData?.alt_description} count={10} />
+            <div className='sm:col-span-2 mt-12'>
+              <RelatedImages query={imageData?.tags[0]?.title} count={10} />
             </div>
           </section>
         )
