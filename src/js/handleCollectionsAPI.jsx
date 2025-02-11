@@ -3,20 +3,16 @@ import axios from "axios";
 const BASE_URL = 'https://api.unsplash.com';
 const API_KEY = import.meta.env.VITE_UNSPLASH_API_KEY
 
-export async function fetchCollections(collectionId) {
-
-  const { data } = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}`)
-
-  return data;
-}
-
-export async function getUserCollections(username) {
-  const response = await axios.get(`${BASE_URL}/users/${username}/collections/?client_id=${API_KEY}`)
+// ######################
+export async function getUserCollections(username, page = 1) {
+  const response = await axios.get(`${BASE_URL}/users/${username}/collections/?client_id=${API_KEY}&page=${page}`)
 
   return response;
 }
-
-// ######################
+export async function fetchFeaturedCollections(page = 1) {
+  const response = await axios.get(`${BASE_URL}/collections/?client_id=${API_KEY}&page=${page}`);
+  return response;
+}
 export async function fetchCollectionImages(collectionId, page = 1) {
   ///collections/:id/photos
   const response = await axios.get(`${BASE_URL}/collections/${collectionId}/photos/?client_id=${API_KEY}&per_page=10&page=${page}`);

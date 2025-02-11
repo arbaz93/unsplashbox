@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Blurhash } from "react-blurhash";
 
-export default function ImageElement({ src, alt, css, isLoaded, onLoad, blurhash }) {
+export default function ImageElement({ src, alt, css, isLoaded, onLoad, blurhash, index }) {
   
   useEffect(() => {
     if (!isLoaded) {
@@ -21,6 +21,7 @@ export default function ImageElement({ src, alt, css, isLoaded, onLoad, blurhash
           resolutionX={32}
           resolutionY={32}
           punch={1}
+          className={`item-${index + 1}`}
           style={{
             display: "block",
             width: "100%",
