@@ -21,7 +21,6 @@ export async function fetchRandomImagesfromAPI(query = undefined, count = 4 ) {
             client_id: API_KEY
         }
     }
-    console.log(query)
     const response = await axios.get(`${BASE_URL}/photos/random`, options);
     return response;
 }
