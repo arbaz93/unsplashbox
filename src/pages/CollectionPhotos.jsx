@@ -49,9 +49,9 @@ export default function Collection() {
       </div>
       <div className={'flex-1 ' + (fetchStatus === 'premium' && ' flex items-center justify-center')}>
         {fetchStatus === 'fetching' ? <div className='flex justify-center items-center w-full h-full'><Spinner /></div>
-          : fetchStatus === 400 || fetchStatus === 401 || fetchStatus === 404 || fetchStatus === 505 || fetchStatus === 503 ? <p className='text-center'>{fetchStatus} | Something went wrong!</p>
-            : fetchStatus === 403 ? <div><p>Demo limit reached!</p></div>
-              : fetchStatus === 'premium' ? <div><p className='text-center'>This collection features exclusive premium images. Access to these images is restricted and not available for public viewing.</p></div>
+          : fetchStatus === 400 || fetchStatus === 401 || fetchStatus === 404 || fetchStatus === 505 || fetchStatus === 503 ? <div><p className='text-center'>{fetchStatus} | Something went wrong!</p></div>
+            : fetchStatus === 403 ? <div><p className='text-center'>Demo limit reached!</p></div>
+              : fetchStatus === 'premium' ? <div><p className='text-center'>This collection features exclusive premium images. Access to these images is restricted and not available for public viewing.<br /> To explore this collection, please visit <a className='text-blue-500' href={`https://unsplash.com/collections/${id}`}>this link</a></p></div>
                 : <ImageGrid images={collectionImages} callback={handleFetch} fetchStatus={fetchStatus} />
         }
       </div>

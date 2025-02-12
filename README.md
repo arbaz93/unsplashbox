@@ -30,9 +30,9 @@ UnsplashBox is a simple and elegant application that allows users to search and 
 
 1. Start the application:
     ```bash
-    npm start
+    npm run dev
     ```
-2. Open your browser and go to `http://localhost:3000`
+2. Open your browser and go to `http://localhost:5173`
 
 ## Contributing
 
@@ -51,4 +51,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 ## Acknowledgements
 
 - [Unsplash](https://unsplash.com) for providing the API and high-quality images
-- All contributors and users for their support
+- DevChallages for providing design

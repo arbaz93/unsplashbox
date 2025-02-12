@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useStore, useCollectionsStore, useAccessStore } from '../zustandstore/store';
@@ -48,11 +48,22 @@ export default function Collections() {
     }
   }
   function handleCollectionTab() {
+
     if (tab === 'featured') {
       fetchFeaturedCollections(featuredPage)
         .then(res => {
-          setFeaturedCollections([...featuredCollections, ...res.data]);
-          setCollections([...featuredCollections, ...res.data]);
+          const newData = res.data;
+
+          const uniqueCollections = [...featuredCollections, ...newData].reduce((acc, item) => {
+            acc.set(item.id, item)
+            return acc;
+          }, new Map());
+
+
+          const updatedCollections = Array.from(uniqueCollections.values());
+
+          setFeaturedCollections(updatedCollections);
+          setCollections(updatedCollections);
           if(res.data.length === 0) setFetchStatus('empty');
         }
         )
@@ -65,8 +76,17 @@ export default function Collections() {
       if (accessToken) {
         getUserCollections(accessToken?.username, userPage)
           .then(res => {
-            setUserCollections([...userCollections, ...res.data])
-            setCollections([...userCollections, ...res.data])
+            const newData = res.data;
+
+            const uniqueCollections = [...userCollections, ...newData].reduce((acc, item) => {
+              acc.set(item.id, item)
+              return acc;
+            }, new Map());
+  
+  
+            const updatedCollections = Array.from(uniqueCollections.values());
+            setUserCollections(updatedCollections)
+            setCollections(updatedCollections)
             if(res.data.length === 0) setFetchStatus('empty');
           })
           .catch(err => {
@@ -84,26 +104,27 @@ export default function Collections() {
       setUserPage(prev => prev + 1);
     }
   }
+  function handleTabChange(tabName) {
+    setFetchStatus('fetching')
+    setTab(tabName)
+  }
   useEffect(() => {
     checkAccessToken();
     urlRedirectHandler();
   }, [])
   useEffect(() => {
-    setCollections([]);
-  }, [tab])
-  useEffect(() => {
     handleCollectionTab();
   }, [tab, userPage, featuredPage])
   return (
-    <section className='flex flex-col gap-12 py-12 px-8 min-height-equal-vh-minus-nav-footer' onScroll={(e) => handlePageOnScroll(e)}>
+    <section className='flex flex-col gap-12 py-12 px-8 min-height-equal-vh-minus-nav-footer'>
       <div className='flex flex-col gap-4 text-center items-center'>
         <Heading title={'Collections'} gradient={true} />
         <div>
           <p className={'font-light text-lg max-w-[40ch] text-pretty'}>Explore the world through collections of beautiful photos free to use under the <a className='font-semibold text-ntrl-clr-300 underline' href='https://unsplash.com/license'>Unsplash License</a>.</p>
         </div>
         <div className='flex gap-4'>
-          <button className={" text-sm px-6 py-2 rounded-[0.25rem] " + ((tab === 'featured') && ' bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold')} onClick={() => setTab('featured')}>Featured Collections</button>
-          <button className={" text-sm px-6 py-2 rounded-[0.25rem] " + ((tab === 'user_collections') && ' bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold')} onClick={() => setTab('user_collections')}>Your Collections</button>
+          <button className={" text-sm px-6 py-2 rounded-[0.25rem] " + ((tab === 'featured') && ' bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold')} onClick={() => { handleTabChange('featured') }}>Featured Collections</button>
+          <button className={" text-sm px-6 py-2 rounded-[0.25rem] " + ((tab === 'user_collections') && ' bg-ntrl-clr-100 text-ntrl-clr-300 font-semibold')} onClick={() => {  handleTabChange('user_collections')}}>Your Collections</button>
         </div>
       </div>
       {(!accessToken && (tab == 'user_collections'))

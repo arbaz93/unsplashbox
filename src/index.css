@@ -61,7 +61,6 @@ input:focus-within {
     background: linear-gradient(to right, #F2C593, #8A3282);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent; 
-    width: min-content;
 }
 .aspect-custom {
     aspect-ratio: 3/2
