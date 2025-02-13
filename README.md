@@ -31,7 +31,7 @@ You can view the live application [here](https://unsplashbox-app.netlify.app/).
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/UnsplashBox.git
+    git clone https://github.com/arbaz93/unsplashbox.git
     ```
 2. Navigate to the project directory:
     ```bash
