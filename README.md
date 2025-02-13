@@ -2,6 +2,9 @@
 
 UnsplashBox is a simple and elegant application that allows users to search and download high-quality images from Unsplash. The application provides an intuitive interface for browsing and saving images for personal or professional use.
 
+![unsplashbox Tube Screenshot](https://github.com/arbaz93/unsplashbox/screenshots/home.png)  
+![unsplashbox Tube Screenshot](https://github.com/arbaz93/unsplashbox/screenshots/collections.png)  
+
 ## Features
 
 - Search for images by keywords
@@ -10,6 +13,19 @@ UnsplashBox is a simple and elegant application that allows users to search and 
 - Login with your unsplash account
 - Add and Remove images to collections
 - User-friendly and responsive design
+## Technologies Used  
+
+- **React.js**  
+- **Axios**  
+- **Tailwind CSS**  
+- **RESTful APIs**  
+- **Zustand**  
+- **Fuse.js**  
+- **Vite for build**  
+
+## Live Demo  
+
+You can view the live application [here](https://unsplashbox-app.netlify.app/).  
 
 ## Installation
 
@@ -25,6 +41,13 @@ UnsplashBox is a simple and elegant application that allows users to search and 
     ```bash
     npm install
     ```
+## Get API key
+
+1. Go to [https://unsplash.com/developers](https://unsplash.com/developers) and register as a developer
+2. Navigate to "Your apps" and create a new app
+3. Your Access key will be your client_id
+4. You will have to grant Public, Read collections and write collections Access (If you are playing around you can check all the boxes in Redirect URI & Permissions section)
+5. Copy/Paste your Access and Secret key to .env file.
 
 ## Usage
 
@@ -51,4 +74,4 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 ## Acknowledgements
 
 - [Unsplash](https://unsplash.com) for providing the API and high-quality images
-- DevChallages for providing design
+- [Inspiration and design from Devchallenges](https://devchallenges.io)

@@ -27,7 +27,6 @@ export default function ImageFeed() {
   const setDisplayAddToCollections = useCollectionsStore(state => state.setDisplayAddToCollections);
   const accessToken = useAccessStore(state => state.accessToken);
   const setAccessToken = useAccessStore(state => state.setAccessToken);
-  const collections = useCollectionsStore(state => state.collections);
   const setCollections = useCollectionsStore(state => state.setCollections);
   const displayAuthMessage = useAuthStore(state => state.displayAuthMessage);
   const setDisplayAuthMessage = useAuthStore(state => state.setDisplayAuthMessage);
@@ -43,6 +42,8 @@ export default function ImageFeed() {
   const date = new Date(created_at);
 
   function fetchImageData(imageId) {
+    setIsLoaded(false);
+    setLoadingStatus('loading');
     fetchImageFromAPI(imageId)
       .then(res => {
         setImageData(res)
@@ -176,7 +177,7 @@ export default function ImageFeed() {
                     })}
               </div>
             </div>
-            <div className='mt-12'>
+            <div className='mt-12 px-4'>
               <HeadingSmall text={'Related images'} />
               <RelatedImages query={imageData?.tags[0]?.title} count={10} />
             </div>

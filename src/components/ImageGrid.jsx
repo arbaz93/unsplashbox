@@ -3,7 +3,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ImageCard } from './'
 
-export default function ImageGrid({ images, callback, fetchStatus }) {
+export default function ImageGrid({ images, callback, fetchStatus, css }) {
     const [loadedImages, setLoadedImages] = useState({});
     const [gridCols, setGridCols] = useState(4);
 
@@ -23,7 +23,7 @@ export default function ImageGrid({ images, callback, fetchStatus }) {
             next={callback}
             hasMore={fetchStatus === 'empty' ? false : true}
         >
-            <ResponsiveMasonry className="w-[80%] m-auto justify-center" columnsCountBreakPoints={{ 350: 2, 640: gridCols, 900: 4 }}>
+            <ResponsiveMasonry className={"w-full m-auto justify-center " + css} columnsCountBreakPoints={{ 350: 2, 640: gridCols, 900: 4 }}>
                 <Masonry gutter='1rem'>
 
                     {images.map(

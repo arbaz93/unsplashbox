@@ -47,7 +47,7 @@ export default function Collection() {
         <Heading title={collectionname} gradient={true} />
         <Description text={`${currentTotalImages} / ${totalphotos ?? '##'} photos`} size={'lg'} />
       </div>
-      <div className={'flex-1 ' + (fetchStatus === 'premium' && ' flex items-center justify-center')}>
+      <div className={'flex-1 w-full sm:w-[80%] m-auto ' + (fetchStatus === 'premium' && ' flex items-center justify-center')}>
         {fetchStatus === 'fetching' ? <div className='flex justify-center items-center w-full h-full'><Spinner /></div>
           : fetchStatus === 400 || fetchStatus === 401 || fetchStatus === 404 || fetchStatus === 505 || fetchStatus === 503 ? <div><p className='text-center'>{fetchStatus} | Something went wrong!</p></div>
             : fetchStatus === 403 ? <div><p className='text-center'>Demo limit reached!</p></div>
