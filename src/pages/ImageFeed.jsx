@@ -177,7 +177,7 @@ export default function ImageFeed() {
                     })}
               </div>
             </div>
-            <div className='mt-12 px-4'>
+            <div className='mt-12 px-4 sm:px-0 sm:col-span-2'>
               <HeadingSmall text={'Related images'} />
               <RelatedImages query={imageData?.tags[0]?.title} count={10} />
             </div>

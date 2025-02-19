@@ -10,6 +10,7 @@ export default function ImageCard({ imageData, isLoaded, onLoad, size }) {
     <Link to={`/image/${imageData?.id}`}
       style={{
         width: '100%',
+        maxHeight: '100vh'
       }}>
       <div
         style={{

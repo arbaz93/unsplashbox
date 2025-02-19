@@ -2,12 +2,14 @@ import { useLocation } from "react-router-dom";
 import { SearchForm, ImageGrid } from "../components"
 import { useEffect, useState } from "react";
 import { fetchSearchImagesFromAPI } from "../js/handleImageAPI";
+import { useStore } from "../zustandstore/store";
+
 export default function SearchFeed() {
   const searchQuery = useLocation().state.searchQuery;
   const [images, setImages] = useState([])
   const [fetchStatus, setFetchStatus] = useState('fetching');
   const [currentPage, setCurrentPage] = useState(1);
-
+  const setResponseMessage = useStore(state => state.setResponseMessage)
   useEffect(() => {
     fetchImages();
   }, [])
@@ -38,6 +40,7 @@ export default function SearchFeed() {
         }
       }).catch(error => {
         setFetchStatus(error.status)
+        setResponseMessage({message: (error.status) ? `${error.status} | Something went wrong!` : error.message, type: 'error'});
         console.error(error)
       });
     setCurrentPage(currentPage + 1)
