@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-sitemap: hhttps://unsplashbox-app.netlify.app/sitemap.xml
+sitemap: https://unsplashbox-app.netlify.app/sitemap.xml
