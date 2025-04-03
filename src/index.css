@@ -46,7 +46,7 @@ input:focus-within {
 }
 
 .home {
-    background-image: url('/assets/hero-image.png');
+    background-image: url('/assets/hero-image.avif');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 98%;

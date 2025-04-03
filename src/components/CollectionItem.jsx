@@ -75,8 +75,8 @@ export default function CollectionItem({ data, photoId, actionType, setCollectio
 
         {!isAdded &&
           (actionType === 'remove'
-            ? <button className='font-semibold flex gap-2 px-4 items-center text-sm duration-200 hover:opacity-60 capitalize' onClick={handleClick}><span>{minusIcon}</span>Remove</button>
-            : <button className='font-semibold flex gap-2 px-4 items-center text-sm duration-200 hover:opacity-60 capitalize' onClick={handleClick}><span>{plusIcon}</span>Add</button>
+            ? <button className='font-semibold flex gap-2 px-4 items-center text-sm duration-200 hover:opacity-60 capitalize' onClick={handleClick} title='remove item'><span>{minusIcon}</span>Remove</button>
+            : <button className='font-semibold flex gap-2 px-4 items-center text-sm duration-200 hover:opacity-60 capitalize' onClick={handleClick} title='add item'><span>{plusIcon}</span>Add</button>
           )}
       </div>
     </div>
