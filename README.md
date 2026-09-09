@@ -2,8 +2,8 @@
 
 UnsplashBox is a simple and elegant application that allows users to search and download high-quality images from Unsplash. The application provides an intuitive interface for browsing and saving images for personal or professional use.
 
-![unsplashbox Tube Screenshot](./screenshots/home.png)  
-![unsplashbox Tube Screenshot](./screenshots/collections.png)  
+![unsplashbox Tube Screenshot](https://i.postimg.cc/QNnVtL39/home.png)  
+![unsplashbox Tube Screenshot](https://i.postimg.cc/CM6d1yg5/collections.png)  
 
 ## Features
 
